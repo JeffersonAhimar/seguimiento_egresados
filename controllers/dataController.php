@@ -1,4 +1,5 @@
 <?php
+// require_once '../config/database.php';
 //Función para conectarnos con la BBDD 
 function conectar()
 {

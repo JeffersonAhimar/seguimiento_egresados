@@ -1,4 +1,4 @@
 <option value='No Definido'>No Definido</option>
-<option value='C'>En curso</option>
-<option value='E'>Egresado</option>
-<option value='T'>Titulado</option>
+<option value='En Curso'>En Curso</option>
+<option value='Egresado'>Egresado</option>
+<option value='Titulado'>Titulado</option>
