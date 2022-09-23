@@ -1,4 +1,11 @@
 <?php
+$title_iestp = "IESTP1";
+$tblName = "se_iestp1";
+?>
+<script>
+    var tblName = "se_iestp1";
+</script>
+<?php
 // Handle AJAX request (start)
 if (isset($_POST['idItem'])) {
     $_SESSION['idItem'] = $_POST['idItem'];
@@ -7,54 +14,29 @@ if (isset($_POST['idItem'])) {
 }
 // Handle AJAX request (end)
 ?>
-<?php
-// require_once "../../src/adminVerificadorSesion.php";
-require "../dependencies/dependencias.php";
-?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--JQUERY-->
+    <script src="../public/javascripts/jquery-3.5.1.min.js"></script>
+    <!--BOOTSTRAP-->
+    <link rel="stylesheet" href="../public/stylesheets/bootstrap.min.css">
+    <script src="../public/javascripts/bootstrap.bundle.min.js"></script>
+    <!--ALERTIFY-->
+    <link rel="stylesheet" href="../public/stylesheets/alertify/alertify.min.css">
+    <link rel="stylesheet" href="../public/stylesheets/alertify/themes/default.css">
+    <script src="../public/javascripts/alertify.min.js"></script>
+    <!---->
+    <link rel="stylesheet" href="../public/stylesheets/estilos.css">
+    <script src="../public/javascripts/javascript.js"></script>
 
-    <script>
-        function exportTableToExcel(tableID, filename = '') {
-            var downloadLink;
-            var dataType = 'application/vnd.ms-excel';
-            var tableSelect = document.getElementById(tableID);
-            var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-
-            // Specify file name
-            filename = filename ? filename + '.xls' : 'excel_data.xls';
-
-            // Create download link element
-            downloadLink = document.createElement("a");
-
-            document.body.appendChild(downloadLink);
-
-            if (navigator.msSaveOrOpenBlob) {
-                var blob = new Blob(['\ufeff', tableHTML], {
-                    type: dataType
-                });
-                navigator.msSaveOrOpenBlob(blob, filename);
-            } else {
-                // Create a link to the file
-                downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-
-                // Setting the file name
-                downloadLink.download = filename;
-
-                //triggering the function
-                downloadLink.click();
-            }
-        }
-
-        function sqlToExcel() {
-            window.open("../../controllers/exportDataController.php", "_blank");
-        }
-    </script>
     <script>
         var delay = 500;
-        var url = "../../controllers/usersController.php";
+        var url = "../controllers/usersController.php";
         var type = "POST";
 
         $(document).ready(Read);
@@ -242,7 +224,8 @@ require "../dependencies/dependencias.php";
                 type: type,
                 url: url,
                 data: {
-                    op: '1'
+                    op: '1',
+                    tblName: tblName
                 },
                 success: function(result) {
                     $("#tabla").html(result);
@@ -315,7 +298,8 @@ require "../dependencies/dependencias.php";
                     var20: var20,
                     var21: var21,
                     var22: var22,
-                    var23: var23
+                    var23: var23,
+                    tblName: tblName
                 },
                 success: function(result) {
                     var tmp = result.split(",");
@@ -385,7 +369,8 @@ require "../dependencies/dependencias.php";
                     var20: var20,
                     var21: var21,
                     var22: var22,
-                    var23: var23
+                    var23: var23,
+                    tblName: tblName
                 },
                 success: function(result) {
                     var tmp = result.split(",");
@@ -410,7 +395,8 @@ require "../dependencies/dependencias.php";
                 url: url,
                 data: {
                     op: '5',
-                    var1: var1
+                    var1: var1,
+                    tblName: tblName
                 },
                 success: function(result) {
                     var tmp = result.split(",");
@@ -439,9 +425,9 @@ require "../dependencies/dependencias.php";
     <header>
         <div class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container col">
-                <div class="logo"><img src="../../public/images/logo_dre.png" width="200" height="100%" margin-right="30" style="margin-right: 1rem;"></div>
+                <div class="logo"><img src="../public/images/logo_dre.png" width="200" height="100%" margin-right="30" style="margin-right: 1rem;"></div>
                 <a href="#" class="navbar-brand" style="margin-left: 1rem;">
-                    <strong>IESTP - SAN AGUSTÍN</strong>
+                    <strong>IESTP - <?php echo $title_iestp; ?></strong>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -450,36 +436,22 @@ require "../dependencies/dependencias.php";
                 <div class="collapse navbar-collapse" id="navbarHeader">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <!-- <a class="nav-link active">ADMIN: <?php echo $apnom; ?></a> -->
                             <a class="nav-link active">SEGUIMIENTO DE EGRESADOS</a>
                         </li>
                     </ul>
-                    <!-- HEADER-->
-                    <!-- <a id="btnRead" class="btn btn-warning" onclick="exportTableToExcel('tblData')">
-                        HTML TO EXCEL<span id="num_cart" class="badge bg-secondary"><?php ?></span>
-                    </a> -->
-                    <form action="../../controllers/dataController.php" method="post" style="margin-left: 0.7rem;">
-                        <button type="submit" id="export_data" name="exportarCSV" value="Export to excel" class="btn btn-default"><img src="../../public/images/sql_csv.ico" alt="Exportar en CSV" style="width: 70px; height: 70px;"></button>
+
+                    <form action="../controllers/dataController.php" method="post" style="margin-left: 0.7rem;">
+                        <button type="submit" id="export_data" name="exportarCSV" value="Export to excel" class="btn btn-default"><img src="../public/images/sql_csv.ico" alt="Exportar en CSV" style="width: 70px; height: 70px;"></button>
+                        <input type="hidden" name="tblName" id="tblName" value="<?php echo $tblName; ?>">
                     </form>
-                    <!-- <form action="../../controllers/exportDataController.php" method="post" style="margin-left: 0.7rem;">
-                        <button type="submit" id="export_data" name="exportarXLS" value="Export to excel" class="btn btn-default"><img src="../../public/images/sql_xls.ico" alt="Exportar enXLS" style="width: 70px; height: 70px;"></button>
-                    </form> -->
-                    <!-- <a id="btnRead" class="btn" style="margin-left: 0.7rem;" onclick="sqlToExcel()">
-                        <img src="../../public/images/sql_xls.ico" alt="" style="width: 100%; height: 50px;"> <span id="num_cart" class="badge bg-secondary"><?php ?></span>
-                    </a> -->
-                    <!-- <img src="../../public/images/logo_excel.png" alt="" onclick="sqlToExcel()"> -->
+
                     <a id="btnCreateModal" class="btn btn-success" style="margin-left: 0.7rem;">
                         Añadir<span id="num_cart" class="badge bg-secondary"><?php ?></span>
                     </a>
 
                     <button id="btnSearch" class="btn btn-info" style="margin-left: 0.7rem;">Buscar</button>
                     <input id="txtbuscar" style="margin-left: 0.4rem; border-radius: 10%;" type="search" placeholder="Buscar" aria-label="Search">
-                    <!-- <form name="form">
-                        <a href="#" class="btn btn-danger" style="margin-left: 0.7rem;">
-                            Cerrar Sesion
-                        </a>
-                        <input type="hidden" name="op" id="op">
-                    </form> -->
+
                 </div>
             </div>
         </div>
@@ -495,12 +467,12 @@ require "../dependencies/dependencias.php";
                     <th scope="col">nombres</th>
                     <th scope="col">apellidos</th>
                     <th scope="col">genero</th>
-                    <th scope="col">email_ins</th>
-                    <th scope="col">email_per</th>
-                    <th scope="col">tlf</th>
+                    <th scope="col">email_institucional</th>
+                    <th scope="col">email_personal</th>
+                    <th scope="col">telefono</th>
                     <th scope="col">carrera</th>
                     <th scope="col">egresado</th>
-                    <th scope="col">grado_acad</th>
+                    <th scope="col">grado_academico</th>
                     <th scope="col">licenciatura</th>
                     <th scope="col">Empleabilidad</th>
                     <th scope="col">Continuidad estudio</th>
@@ -524,7 +496,7 @@ require "../dependencies/dependencias.php";
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalCULabel">Formulario - IESTP</h5>
+                <h5 class="modal-title" id="modalCULabel">Seguimiento de Egresados</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -548,7 +520,7 @@ require "../dependencies/dependencias.php";
                     <label class="col-form-label" for="txt5">genero:</label>
                     <select name="select" class="form-control" id="txt5">
                         <!-- OPTIONS -->
-                        <?php require '../dependencies/gender.php';  ?>
+                        <?php require 'dependencies/gender.php';  ?>
                     </select>
                 </div>
                 <div class="mb-3" id="divtxt6">
@@ -571,21 +543,21 @@ require "../dependencies/dependencias.php";
                     <label class="col-form-label" for="txt10">egresado:</label>
                     <select name="select" class="form-control" id="txt10">
                         <!-- OPTIONS -->
-                        <?php require '../dependencies/bit.php';  ?>
+                        <?php require 'dependencies/bit.php';  ?>
                     </select>
                 </div>
                 <div class="mb-3" id="divtxt11">
                     <label class="col-form-label" for="txt11">grado_acad:</label>
                     <select name="select" class="form-control" id="txt11">
                         <!-- OPTIONS -->
-                        <?php require '../dependencies/t_o.php';  ?>
+                        <?php require 'dependencies/t_o.php';  ?>
                     </select>
                 </div>
                 <div class="mb-3" id="divtxt12">
                     <label class="col-form-label" for="txt12">licenciatura:</label>
                     <select name="select" class="form-control" id="txt12">
                         <!-- OPTIONS -->
-                        <?php require '../dependencies/t_o.php';  ?>
+                        <?php require 'dependencies/t_o.php';  ?>
                     </select>
                 </div>
                 <!-- EMPLEABILIDAD -->
@@ -593,7 +565,7 @@ require "../dependencies/dependencias.php";
                     <label class="col-form-label" for="txt13">¿Está laborando?:</label>
                     <select name="select" class="form-control" id="txt13">
                         <!-- OPTIONS -->
-                        <?php require '../dependencies/bit.php';  ?>
+                        <?php require 'dependencies/bit.php';  ?>
                     </select>
                     <!--  -->
                 </div>
@@ -617,14 +589,14 @@ require "../dependencies/dependencias.php";
                     <label class="col-form-label" for="txt18">modalidad:</label>
                     <select name="select" class="form-control" id="txt18">
                         <!-- OPTIONS -->
-                        <?php require '../dependencies/p_v_h.php';  ?>
+                        <?php require 'dependencies/p_v_h.php';  ?>
                     </select>
                 </div>
                 <div class="mb-3 bg-warning" id="divtxt19">
                     <label class="col-form-label" for="txt19">¿Continua sus estudios?:</label>
                     <select name="select" class="form-control" id="txt19">
                         <!-- OPTIONS -->
-                        <?php require '../dependencies/bit.php';  ?>
+                        <?php require 'dependencies/bit.php';  ?>
                     </select>
                     <!--  -->
                 </div>
@@ -632,7 +604,7 @@ require "../dependencies/dependencias.php";
                     <label class="col-form-label" for="txt20">universidad:</label>
                     <select name="select" class="form-control" id="txt20">
                         <!-- OPTIONS -->
-                        <?php require '../dependencies/c_e_t.php';  ?>
+                        <?php require 'dependencies/c_e_t.php';  ?>
                     </select>
                     <!--  -->
                 </div>
@@ -640,7 +612,7 @@ require "../dependencies/dependencias.php";
                     <label class="col-form-label" for="txt21">maestria:</label>
                     <select name="select" class="form-control" id="txt21">
                         <!-- OPTIONS -->
-                        <?php require '../dependencies/c_e_t.php';  ?>
+                        <?php require 'dependencies/c_e_t.php';  ?>
                     </select>
                     <!--  -->
                 </div>
@@ -648,7 +620,7 @@ require "../dependencies/dependencias.php";
                     <label class="col-form-label" for="txt22">doctorado:</label>
                     <select name="select" class="form-control" id="txt22">
                         <!-- OPTIONS -->
-                        <?php require '../dependencies/c_e_t.php';  ?>
+                        <?php require 'dependencies/c_e_t.php';  ?>
                     </select>
                     <!--  -->
                 </div>

@@ -8,6 +8,11 @@ if (!empty($_POST['op'])) {
 } else {
     echo 'No hay op';
 }
+if (!empty($_POST['tblName'])) {
+    $tblName = $_POST['tblName'];
+} else {
+    echo 'No hay tblName';
+}
 //RECUPERANDO DATOS
 if (!empty($_POST['var1'])) {
     $var1 = $_POST['var1'];
@@ -132,7 +137,7 @@ switch ($op) {
         //LISTAR
     case 1: {
             $objDao = new usersDao();
-            $tabla = $objDao->Read();
+            $tabla = $objDao->Read($tblName);
             echo $tabla;
             break;
         }
@@ -141,7 +146,7 @@ switch ($op) {
     case 2: {
             $objDao = new usersDao();
             //LISTANDO
-            $tabla = $objDao->Search($search);
+            $tabla = $objDao->Search($search,$tblName);
             echo $tabla;
             break;
         }
@@ -182,7 +187,7 @@ switch ($op) {
                 $objBean->setEspecializacion($var23);
                 //CREANDO EL REGISTRO EN LA BASE DE DATOS
                 $objDao = new usersDao();
-                $mensajes = $objDao->Create($objBean);
+                $mensajes = $objDao->Create($objBean,$tblName);
             }
             //DEVOLVIENDO MENSAJES
             foreach ($mensajes as $m) {
@@ -224,7 +229,7 @@ switch ($op) {
                 $objBean->setEspecializacion($var23);
                 //CREANDO EL REGISTRO EN LA BASE DE DATOS
                 $objDao = new usersDao();
-                $mensajes = $objDao->Update($objBean);
+                $mensajes = $objDao->Update($objBean,$tblName);
             }
             //DEVOLVIENDO MENSAJES
             foreach ($mensajes as $m) {
@@ -240,7 +245,7 @@ switch ($op) {
             $objBean->setId($var1);
             //ELIMINANDO EL REGISTRO DE LA BASE DE DATOS
             $objDao = new usersDao();
-            $mensajes = $objDao->Delete($objBean);
+            $mensajes = $objDao->Delete($objBean,$tblName);
             //DEVOLVIENDO MENSAJES
             foreach ($mensajes as $m) {
                 echo $m . ",";

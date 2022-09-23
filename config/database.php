@@ -3,7 +3,7 @@
 define("MYSQL_HOST", 'localhost');
 define("MYSQL_PORT", '');
 define("MYSQL_USER", 'root');
-define("MYSQL_DATABASE", 'institutos');
+define("MYSQL_DATABASE", 'seguimiento_egresados_mo');
 define("MYSQL_PASSWORD", '');
 
 class Database

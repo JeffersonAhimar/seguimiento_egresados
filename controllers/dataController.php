@@ -7,7 +7,7 @@ function conectar()
         "localhost", // URL
         "root", // Usuario
         "", // Clave
-        "institutos" // Nombre 
+        "seguimiento_egresados_mo" // Nombre 
     );
     //En caso de haber un error de conexión a la BBDD...
     if ($x->connect_errno) {
@@ -21,20 +21,24 @@ function conectar()
 $c = conectar();
 
 // Creamos la consulta que va a compartir la visualización en PHP y en CSV
-$consulta = $c->query("SELECT * FROM users order by id ASC ");
+
+if (isset($_POST["tblName"])) {
+    $tblName = $_POST["tblName"];
+}
+$consulta = $c->query("SELECT * FROM $tblName order by id ASC ");
 
 //Si hemos pulsado al botón de Exportar a Excel (CSV)...
 if (isset($_POST["exportarCSV"])) {
     if (!empty($consulta)) {
         //El nombre del fichero tendrá el nombre de "usuarios_dia-mes-anio hora_minutos_segundos.csv"
-        $ficheroExcel = "usuarios " . date("d-m-Y H_i_s") . ".csv";
+        $ficheroExcel = $tblName."_usuarios " . date("d-m-Y H_i_s") . ".csv";
 
         //Indicamos que vamos a tratar con un fichero CSV
         header("Content-type: text/csv");
         header("Content-Disposition: attachment; filename=" . $ficheroExcel);
 
         // Vamos a mostrar en las celdas las columnas que queremos que aparezcan en la primera fila, separadas por ; 
-        echo "id;codigo;nombres;apellidos;genero;email_ins;email_per;tlf;carrera;egresado;grado_acad;licenciatura;isEstEmpleabilidad;area;puesto;rango_sueldo;ubigeo;modalidad;isContEstudios;universidad;maestria;doctorado;especializacion\n";
+        echo "id;codigo;nombres;apellidos;genero;email_ins;email_per;tlf;carrera;egresado;grado_acad;licenciatura;isEstEmpleabilidad;area;puesto;rango_sueldo;ubigeo;modalidad;isContEstudios;universidad;maestria;doctorado;especializacion;created_at;updated_at\n";
 
         // Recorremos la consulta SQL y lo mostramos
         while ($user = $consulta->fetch_row()) {
@@ -60,7 +64,9 @@ if (isset($_POST["exportarCSV"])) {
             echo $user['19'] . ";";
             echo $user['20'] . ";";
             echo $user['21'] . ";";
-            echo $user['22'] . "\n";
+            echo $user['22'] . ";";
+            echo $user['23'] . ";";
+            echo $user['24'] . "\n";
         }
     } else {
         echo "No hay datos a exportar";

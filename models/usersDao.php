@@ -45,7 +45,7 @@ class usersDao
         $this->codigo = htmlspecialchars($objBean->getCodigo());
         $this->nombres = htmlspecialchars($objBean->getNombres());
         $this->apellidos = htmlspecialchars($objBean->getApellidos());
-        $this->genero= htmlspecialchars($objBean->getGenero());
+        $this->genero = htmlspecialchars($objBean->getGenero());
         $this->email_ins = htmlspecialchars($objBean->getEmail_ins());
         $this->email_per = htmlspecialchars($objBean->getEmail_per());
         $this->tlf = htmlspecialchars($objBean->getTlf());
@@ -68,19 +68,43 @@ class usersDao
         $this->maestria = htmlspecialchars($objBean->getMaestria());
         $this->doctorado = htmlspecialchars($objBean->getDoctorado());
         $this->especializacion = htmlspecialchars($objBean->getEspecializacion());
-
     }
 
     //BUSCAR UN REGISTRO DE LA TABLA
-    public function Search($search)
+    public function Search($search, $tblName)
     {
-        $sql_text = "SELECT * FROM users WHERE id LIKE '%$search%' OR codigo LIKE '%$search%' OR nombres LIKE '%$search%' OR apellidos LIKE '%$search%' OR email_ins LIKE '%$search%' OR email_per LIKE '%$search%' OR grado_acad LIKE '%$search%' OR licenciatura LIKE '%$search%'";
+        $sql_text = "SELECT * FROM $tblName WHERE 
+        id LIKE '%$search%' 
+        OR codigo LIKE '%$search%' 
+        OR nombres LIKE '%$search%' 
+        OR apellidos LIKE '%$search%'
+        OR genero LIKE '%$search%'
+        OR email_ins LIKE '%$search%' 
+        OR email_per LIKE '%$search%' 
+        OR tlf LIKE '%$search%' 
+        OR carrera LIKE '%$search%' 
+        OR egresado LIKE '%$search%' 
+        OR grado_acad LIKE '%$search%' 
+        OR licenciatura LIKE '%$search%' 
+        OR isEstEmpleabilidad LIKE '%$search%' 
+        OR area LIKE '%$search%' 
+        OR puesto LIKE '%$search%' 
+        OR rango_sueldo LIKE '%$search%' 
+        OR ubigeo LIKE '%$search%' 
+        OR modalidad LIKE '%$search%' 
+        OR isContEstudios LIKE '%$search%' 
+        OR universidad LIKE '%$search%' 
+        OR maestria LIKE '%$search%' 
+        OR doctorado LIKE '%$search%' 
+        OR especializacion LIKE '%$search%' 
+        OR created_at LIKE '%$search%' 
+        OR updated_at LIKE '%$search%'";
         $tabla = $this->ListarTablas($sql_text);
         return $tabla;
     }
 
     //CREAR REGISTRO EN LA TABLA
-    public function Create(usersBean $objBean)
+    public function Create(usersBean $objBean, $tblName)
     {
         $this->GetData($objBean);
         $result = 0;
@@ -88,7 +112,7 @@ class usersDao
         try {
             $db = new Database();
             $con = $db->conectar();
-            $sql = $con->prepare("INSERT INTO users (
+            $sql = $con->prepare("INSERT INTO $tblName (
                 codigo,
                 nombres,
                 apellidos,
@@ -153,7 +177,7 @@ class usersDao
     }
 
     //MODIFICAR UN REGISTRO DE LA TABLA
-    public function Update(usersBean $objBean)
+    public function Update(usersBean $objBean, $tblName)
     {
         $this->GetData($objBean);
         $result = 0;
@@ -161,7 +185,7 @@ class usersDao
         try {
             $db = new Database();
             $con = $db->conectar();
-            $sql = $con->prepare("UPDATE users SET 
+            $sql = $con->prepare("UPDATE $tblName SET 
             codigo=?, 
             nombres=?,
             apellidos=?,
@@ -220,7 +244,7 @@ class usersDao
     }
 
     //ELIMINAR UN REGISTRO DE LA TABLA
-    public function Delete(usersBean $objBean)
+    public function Delete(usersBean $objBean, $tblName)
     {
         $id = $objBean->getId();    //GET ID
         $result = 0;
@@ -228,7 +252,7 @@ class usersDao
         try {
             $db = new Database();
             $con = $db->conectar();
-            $sql = $con->prepare("DELETE FROM users WHERE id=?");
+            $sql = $con->prepare("DELETE FROM $tblName WHERE id=?");
             $sql->execute([$id]);
             $result = 1;
             $msg = 'Eliminado correctamente';
@@ -241,9 +265,9 @@ class usersDao
 
 
     //LEER TODOS LOS REGISTROS DE LA TABLA
-    public function Read()
+    public function Read($tblName)
     {
-        $sql_text = "SELECT * FROM users";
+        $sql_text = "SELECT * FROM $tblName";
         $tabla = $this->ListarTablas($sql_text);
         return $tabla;
     }
