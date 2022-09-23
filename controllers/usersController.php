@@ -146,7 +146,7 @@ switch ($op) {
     case 2: {
             $objDao = new usersDao();
             //LISTANDO
-            $tabla = $objDao->Search($search,$tblName);
+            $tabla = $objDao->Search($search, $tblName);
             echo $tabla;
             break;
         }
@@ -160,6 +160,8 @@ switch ($op) {
             //VERIFICANDO SI ESTAN VACIOS LOS CAMPOS
             if ($var2 == '' || $var3 == '' || $var4 == '' || $var5 == '' || $var6 == '' || $var7 == '' || $var8 == '' || $var9 == '' || $var10 == '' || $var11 == '' || $var12 == '' || $var13 == '' || $var19 == '') {
                 $mensajes = array('2', 'Faltan llenar campos');
+            } else if (!filter_var($var6, FILTER_VALIDATE_EMAIL) || !filter_var($var7, FILTER_VALIDATE_EMAIL)) {
+                $mensajes = array('2', 'Formato de email inválido');
             } else {
                 //CREANDO OBJETO E INSERTANDOLE LOS DATOS RECUPERADOS
                 $objBean = new usersBean();
@@ -187,7 +189,7 @@ switch ($op) {
                 $objBean->setEspecializacion($var23);
                 //CREANDO EL REGISTRO EN LA BASE DE DATOS
                 $objDao = new usersDao();
-                $mensajes = $objDao->Create($objBean,$tblName);
+                $mensajes = $objDao->Create($objBean, $tblName);
             }
             //DEVOLVIENDO MENSAJES
             foreach ($mensajes as $m) {
@@ -201,6 +203,8 @@ switch ($op) {
             //VERIFICANDO SI ESTAN VACIOS LOS CAMPOS
             if ($var2 == '' || $var3 == '' || $var4 == '' || $var5 == '' || $var6 == '' || $var7 == '' || $var8 == '' || $var9 == '' || $var10 == '' || $var11 == '' || $var12 == '' || $var13 == '' || $var19 == '') {
                 $mensajes = array('2', 'Faltan llenar campos');
+            } else if (!filter_var($var6, FILTER_VALIDATE_EMAIL) || !filter_var($var7, FILTER_VALIDATE_EMAIL)) {
+                $mensajes = array('2', 'Formato de email inválido');
             } else {
                 //CREANDO OBJETO E INSERTANDOLE LOS DATOS RECUPERADOS
                 $objBean = new usersBean();
@@ -229,7 +233,7 @@ switch ($op) {
                 $objBean->setEspecializacion($var23);
                 //CREANDO EL REGISTRO EN LA BASE DE DATOS
                 $objDao = new usersDao();
-                $mensajes = $objDao->Update($objBean,$tblName);
+                $mensajes = $objDao->Update($objBean, $tblName);
             }
             //DEVOLVIENDO MENSAJES
             foreach ($mensajes as $m) {
@@ -245,7 +249,7 @@ switch ($op) {
             $objBean->setId($var1);
             //ELIMINANDO EL REGISTRO DE LA BASE DE DATOS
             $objDao = new usersDao();
-            $mensajes = $objDao->Delete($objBean,$tblName);
+            $mensajes = $objDao->Delete($objBean, $tblName);
             //DEVOLVIENDO MENSAJES
             foreach ($mensajes as $m) {
                 echo $m . ",";

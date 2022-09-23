@@ -457,13 +457,13 @@ if (isset($_POST['idItem'])) {
             <thead>
                 <tr>
                     <th scope="col">id</th>
-                    <th scope="col">codigo</th>
+                    <th scope="col">código</th>
                     <th scope="col">nombres</th>
                     <th scope="col">apellidos</th>
                     <th scope="col">genero</th>
                     <th scope="col">email_institucional</th>
                     <th scope="col">email_personal</th>
-                    <th scope="col">telefono</th>
+                    <th scope="col">teléfono</th>
                     <th scope="col">carrera</th>
                     <th scope="col">egresado</th>
                     <th scope="col">grado_academico</th>
@@ -499,7 +499,7 @@ if (isset($_POST['idItem'])) {
                     <input type="text" class="form-control" id="txt1">
                 </div>
                 <div class="mb-3" id="divtxt2">
-                    <label class="col-form-label" for="txt2">codigo:</label>
+                    <label class="col-form-label" for="txt2">código:</label>
                     <input type="text" class="form-control" id="txt2" placeholder="Campo obligatorio">
                 </div>
                 <div class="mb-3" id="divtxt3">
@@ -511,7 +511,7 @@ if (isset($_POST['idItem'])) {
                     <input type="text" class="form-control" id="txt4" placeholder="Campo obligatorio">
                 </div>
                 <div class="mb-3" id="divtxt5">
-                    <label class="col-form-label" for="txt5">genero:</label>
+                    <label class="col-form-label" for="txt5">género:</label>
                     <select name="select" class="form-control" id="txt5">
                         <!-- OPTIONS -->
                         <?php require 'dependencies/gender.php';  ?>
@@ -526,7 +526,7 @@ if (isset($_POST['idItem'])) {
                     <input type="text" class="form-control" id="txt7" placeholder="Campo obligatorio">
                 </div>
                 <div class="mb-3" id="divtxt8">
-                    <label class="col-form-label" for="txt8">tlf:</label>
+                    <label class="col-form-label" for="txt8">telefono:</label>
                     <input type="text" class="form-control" id="txt8" placeholder="Campo obligatorio">
                 </div>
                 <div class="mb-3" id="divtxt9">
@@ -541,7 +541,7 @@ if (isset($_POST['idItem'])) {
                     </select>
                 </div>
                 <div class="mb-3" id="divtxt11">
-                    <label class="col-form-label" for="txt11">grado_acad:</label>
+                    <label class="col-form-label" for="txt11">grado_académico:</label>
                     <select name="select" class="form-control" id="txt11">
                         <!-- OPTIONS -->
                         <?php require 'dependencies/t_o.php';  ?>
@@ -564,7 +564,7 @@ if (isset($_POST['idItem'])) {
                     <!--  -->
                 </div>
                 <div class="mb-3 text-info" id="divtxt14">
-                    <label class="col-form-label" for="txt14">area:</label>
+                    <label class="col-form-label" for="txt14">área:</label>
                     <input type="text" class="form-control" id="txt14">
                 </div>
                 <div class="mb-3 text-info" id="divtxt15">
@@ -603,7 +603,7 @@ if (isset($_POST['idItem'])) {
                     <!--  -->
                 </div>
                 <div class="mb-3 text-warning" id="divtxt21">
-                    <label class="col-form-label" for="txt21">maestria:</label>
+                    <label class="col-form-label" for="txt21">maestría:</label>
                     <select name="select" class="form-control" id="txt21">
                         <!-- OPTIONS -->
                         <?php require 'dependencies/c_e_t.php';  ?>
@@ -619,7 +619,7 @@ if (isset($_POST['idItem'])) {
                     <!--  -->
                 </div>
                 <div class="mb-3 text-warning" id="divtxt23">
-                    <label class="col-form-label" for="txt23">especializacion:</label>
+                    <label class="col-form-label" for="txt23">especialización:</label>
                     <input type="text" class="form-control" id="txt23">
                 </div>
             </div>
