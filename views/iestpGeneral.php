@@ -421,7 +421,7 @@ if (isset($_POST['idItem'])) {
             <div class="container col">
                 <div class="logo"><img src="../public/images/logo_dre.png" width="200" height="100%" margin-right="30" style="margin-right: 1rem;"></div>
                 <a href="#" class="navbar-brand" style="margin-left: 1rem;">
-                    <strong>IESTP - <?php echo $title_iestp; ?></strong>
+                    <strong><?php echo $title_iestp; ?></strong>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
